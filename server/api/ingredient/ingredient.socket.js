@@ -4,21 +4,21 @@
 
 'use strict';
 
-var Ingredients = require('./ingredients.model');
+var Ingredient = require('./ingredient.model');
 
 exports.register = function(socket) {
-  Ingredients.schema.post('save', function (doc) {
+  Ingredient.schema.post('save', function (doc) {
     onSave(socket, doc);
   });
-  Ingredients.schema.post('remove', function (doc) {
+  Ingredient.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
 }
 
 function onSave(socket, doc, cb) {
-  socket.emit('ingredients:save', doc);
+  socket.emit('ingredient:save', doc);
 }
 
 function onRemove(socket, doc, cb) {
-  socket.emit('ingredients:remove', doc);
+  socket.emit('ingredient:remove', doc);
 }
