@@ -2,7 +2,7 @@
 
 angular.module('baristaMaticApp')
     .controller('MainCtrl', function ($scope, $http, socket) {
-        $scope.awesomeThings = [],
+        $scope.drinkList = [],
         $scope.ingredientList = [];
 
         $http.get('/api/things').success(function(awesomeThings) {
@@ -13,6 +13,11 @@ angular.module('baristaMaticApp')
         $http.get('/api/ingredients').success(function(ingredientList) {
             $scope.ingredientList = ingredientList;
             socket.syncUpdates('ingredient', $scope.ingredientList);
+        });
+
+        $http.get('/api/drinks').success(function(drinkList) {
+            $scope.drinkList = drinkList;
+            socket.syncUpdates('drink', $scope.drinkList);
         });
 
         $scope.addThing = function() {
