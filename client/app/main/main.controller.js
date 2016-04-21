@@ -12,7 +12,8 @@ angular.module('baristaMaticApp')
             $scope.drinkList = data;
         });
 
-        $scope.drinkSelect = function() {
-            console.log('drink')
+        $scope.drinkSelect = function(event, el) {
+            var selectedDrink = el;
+            drinks.drinkSelect(selectedDrink);
         };
     });

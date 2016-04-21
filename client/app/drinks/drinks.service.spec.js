@@ -18,4 +18,8 @@ describe('Service: drinks', function () {
   it('should return drinks object', function () {
     expect(!!drinks.drinkList).toBe(true);
   });
+
+  it('should have drink select function', function () {
+    expect(!!drinks.drinkSelect).toBe(true);
+  });
 });
