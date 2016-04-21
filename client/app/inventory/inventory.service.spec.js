@@ -15,4 +15,7 @@ describe('Service: inventory', function () {
     expect(!!inventory).toBe(true);
   });
 
+  it('should return ingredients object', function () {
+    expect(!!inventory.ingredientList).toBe(true);
+  });
 });

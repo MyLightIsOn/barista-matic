@@ -15,4 +15,7 @@ describe('Service: drinks', function () {
     expect(!!drinks).toBe(true);
   });
 
+  it('should return drinks object', function () {
+    expect(!!drinks.drinkList).toBe(true);
+  });
 });
