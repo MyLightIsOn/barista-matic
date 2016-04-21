@@ -13,7 +13,7 @@
       <br />
       <ul ng-repeat="drink in drinkList">
         <li>
-          <span>{{drink.name}}</span>
+          <span ng-click="drinkSelect()">{{drink.name}}</span>
         </li>
       </ul>
     </div>
