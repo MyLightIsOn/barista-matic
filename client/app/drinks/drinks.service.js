@@ -1,18 +1,21 @@
 'use strict';
 
 angular.module('baristaMaticApp')
-    .factory('drinks', function ($http) {
+    .factory('drinks', function ($http, inventory) {
 
         var drinkList = function(){
             return $http.get('/api/drinks');
         };
 
-        var drinkSelect = function(selectedDrink){
-            var drinkIngredients = selectedDrink.ingredients;
+        var drinkSelect = function(selectedDrink, ingredientList){
+            var drinkIngredients = selectedDrink.ingredients,
+                drinkIngArr = [];
 
             for (var ingredients in drinkIngredients) {
-                console.log(ingredients + ' : ' + drinkIngredients[ingredients]);
+                drinkIngArr.push(drinkIngredients[ingredients]);
             }
+
+            inventory.updateIngredients(drinkIngArr, ingredientList)
         };
 
         // Public API here
