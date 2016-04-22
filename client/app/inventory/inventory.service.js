@@ -10,6 +10,13 @@ angular.module('baristaMaticApp')
 
             for(var i = 0; i < ingredientsToUpdate.length; i++){
                 var remainingValue = ingredientsToUpdate[i].units -= ingredientsToSubtract[i];
+
+                if(remainingValue < 1){
+                    ingredientsToUpdate[i].units = 0;
+                    ingredientsToSubtract[i] = 0;
+                    remainingValue = 0
+                }
+
                 updateDB(remainingValue,ingredientsToUpdate[i])
             }
         };
