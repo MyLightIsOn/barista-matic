@@ -16,14 +16,25 @@ angular.module('baristaMaticApp')
 
         var updateDB = function(remainingValue, ingredientsToUpdate){
             $http.put('/api/ingredients/' + ingredientsToUpdate._id, {'units' : remainingValue}).success(function(result){
-                console.log(result)
+                console.log('Database Updated')
             });
+        };
+
+        var restockInventory = function(ingredients){
+            for(var i = 0; i < ingredients.length; i++){
+                ingredients[i].units = 10;
+                $http.put('/api/ingredients/' + ingredients[i]._id, {'units' : 10}).success(function(result){
+                    console.log('Ingredients Restocked')
+                });
+            }
         };
 
         // Public API here
         return {
             ingredientList : ingredientList,
 
-            updateIngredients : updateIngredients
+            updateIngredients : updateIngredients,
+
+            restockInventory: restockInventory
         };
     });

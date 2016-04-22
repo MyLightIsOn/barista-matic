@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('baristaMaticApp')
-    .controller('MainCtrl', function ($scope, $http, socket, inventory, drinks) {
+    .controller('MainCtrl', function ($scope, $http, $document, socket, inventory, drinks) {
         $scope.drinkList = [],
 
         inventory.ingredientList().success(function(data){
@@ -16,4 +16,10 @@ angular.module('baristaMaticApp')
             var selectedDrink = el;
             drinks.drinkSelect(selectedDrink, $scope.ingredientList);
         };
+
+        $document.bind('keypress', function(e){
+            if(e.charCode === 114){
+                inventory.restockInventory($scope.ingredientList)
+            }
+        })
     });
