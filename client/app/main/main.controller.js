@@ -20,5 +20,37 @@ angular.module('baristaMaticApp')
             if(e.charCode === 114){
                 inventory.restockInventory($scope.ingredientList)
             }
+
+            if(e.charCode === 49 || e.charCode === 50 || e.charCode === 51 || e.charCode === 52 || e.charCode === 53 || e.charCode === 54){
+                 var selectedDrink;
+
+                switch(e.charCode){
+                    case 49:
+                        selectedDrink = $scope.drinkList[0];
+                        break;
+
+                    case 50:
+                        selectedDrink = $scope.drinkList[1];
+                        break;
+
+                    case 51:
+                        selectedDrink = $scope.drinkList[2];
+                        break;
+
+                    case 52:
+                        selectedDrink = $scope.drinkList[3];
+                        break;
+
+                    case 53:
+                        selectedDrink = $scope.drinkList[4];
+                        break;
+
+                    case 54:
+                        selectedDrink = $scope.drinkList[5];
+                        break;
+                }
+
+                $scope.drinkSelect(event, selectedDrink);
+            }
         })
     });
