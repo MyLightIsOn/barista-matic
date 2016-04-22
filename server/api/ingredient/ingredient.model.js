@@ -5,8 +5,9 @@ var mongoose = require('mongoose'),
 
 var IngredientSchema = new Schema({
   name: String,
-  info: String,
-  active: Boolean
+  dbname: String,
+  cost: Number,
+  units: Number
 });
 
 module.exports = mongoose.model('Ingredient', IngredientSchema);

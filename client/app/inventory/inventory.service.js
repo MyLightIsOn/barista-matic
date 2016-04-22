@@ -9,9 +9,15 @@ angular.module('baristaMaticApp')
         var updateIngredients = function(ingredientsToSubtract, ingredientsToUpdate){
 
             for(var i = 0; i < ingredientsToUpdate.length; i++){
-                ingredientsToUpdate[i].units -= ingredientsToSubtract[i];
-                console.log(ingredientsToUpdate[i])
+                var remainingValue = ingredientsToUpdate[i].units -= ingredientsToSubtract[i];
+                updateDB(remainingValue,ingredientsToUpdate[i])
             }
+        };
+
+        var updateDB = function(remainingValue, ingredientsToUpdate){
+            $http.put('/api/ingredients/' + ingredientsToUpdate._id, {'units' : remainingValue}).success(function(result){
+                console.log(result)
+            });
         };
 
         // Public API here
