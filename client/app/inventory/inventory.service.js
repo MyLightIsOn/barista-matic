@@ -36,12 +36,25 @@ angular.module('baristaMaticApp')
             }
         };
 
+
+        var inventoryPrices = function(itemName, itemAmount, inventoryList){
+
+            for(var i = 0; i < inventoryList.length; i++){
+                if(itemName === inventoryList[i].dbname){
+                    var totalCost =  (inventoryList[i].cost * itemAmount).toFixed(2);
+                    return parseFloat(totalCost)
+                }
+            }
+        };
+
         // Public API here
         return {
             ingredientList : ingredientList,
 
             updateIngredients : updateIngredients,
 
-            restockInventory: restockInventory
+            restockInventory : restockInventory,
+
+            inventoryPrices : inventoryPrices
         };
     });

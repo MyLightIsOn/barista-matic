@@ -10,6 +10,8 @@ angular.module('baristaMaticApp')
 
         drinks.drinkList().success(function(data){
             $scope.drinkList = data;
+            drinks.drinkCost(data, $scope.ingredientList);
+            $scope.drinkListAndPrice = drinks.calculatePrice(drinks.priceObj)
         });
 
         $scope.drinkSelect = function(event, selectedDrink) {

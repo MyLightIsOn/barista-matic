@@ -11,9 +11,15 @@
 
       <br />
       <br />
-      <ul>
+      <!--<ul>
         <li ng-repeat="drink in drinkList">
           <span ng-click="drinkSelect($event, drink)" data-name="{{drink.dataName}}">{{drink.name}}</span>
+        </li>
+      </ul>-->
+
+      <ul>
+        <li ng-repeat="drink in drinkListAndPrice">
+          <span ng-click="drinkSelect($event, drink)" data-name="{{drink.dataName}}">{{drink.name}}: {{drink.totalPrice}}</span>
         </li>
       </ul>
     </div>
