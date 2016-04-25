@@ -3,6 +3,7 @@
 angular.module('baristaMaticApp')
     .factory('drinks', function ($http, inventory) {
         var drinkList,
+            drinkIndex,
             drinkSelect,
             drinkCost,
             buildPriceObj,
@@ -11,6 +12,13 @@ angular.module('baristaMaticApp')
 
         drinkList = function(){
             return $http.get('/api/drinks');
+        };
+
+        drinkIndex = function(drinkList){
+            for(var i = 0; i < drinkList.length; ++i){
+                drinkList[i].drinkNumber = i + 1
+            }
+            return drinkList
         };
 
         drinkSelect = function(selectedDrink, ingredientList){
@@ -67,13 +75,14 @@ angular.module('baristaMaticApp')
                 }
 
             }
-            console.log(objToCalc);
             return objToCalc
         };
 
         // Public API here
         return {
             drinkList : drinkList,
+
+            drinkIndex : drinkIndex,
 
             drinkSelect : drinkSelect,
 
