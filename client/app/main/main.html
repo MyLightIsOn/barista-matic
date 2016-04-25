@@ -11,8 +11,12 @@
       <div id="drink-list-container">
         <ul class="drink-list">
           <li ng-repeat="drink in drinkList">
-            <span>{{drink.drinkNumber}}</span>
-            <span ng-click="drinkSelect($event, drink)" data-name="{{drink.dataName}}">{{drink.name}}</span>
+            <div class="number-container">
+              <span class="number-circle">
+                <span class="drink-number">{{drink.drinkNumber}}</span>
+              </span>
+            </div>
+            <span ng-click="drinkSelect($event, drink)" data-name="{{drink.dataName}}" class="drink-name">{{drink.name}}</span>
           </li>
         </ul>
       </div>
