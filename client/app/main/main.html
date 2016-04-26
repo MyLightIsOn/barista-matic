@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <div id="drink-list-container">
         <ul class="drink-list">
-          <li ng-repeat="drink in drinkList" ng-click="drinkSelect($event, drink)" data-name="{{drink.dataName}}">
+          <li ng-repeat="drink in drinkList" ng-click="drinkSelect($event, drink)" data-name="{{drink.dataName}}" ng-class="{'low-inventory': drink.lowInventory}">
             <div class="number-container">
               <span class="number-circle">
                 <span class="drink-number">{{drink.drinkNumber}}</span>

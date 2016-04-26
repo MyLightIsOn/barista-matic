@@ -22,7 +22,7 @@ angular.module('baristaMaticApp')
             return drinkList
         };
 
-        drinkSelect = function(selectedDrink, ingredientList){
+        drinkSelect = function(selectedDrink, ingredientList, drinkList){
             var drinkIngredients = selectedDrink.ingredients,
                 drinkIngArr = [];
 
@@ -30,7 +30,7 @@ angular.module('baristaMaticApp')
                 drinkIngArr.push(drinkIngredients[ingredients]);
             }
 
-            inventory.updateIngredients(drinkIngArr, ingredientList)
+            inventory.updateIngredients(drinkIngArr, ingredientList, drinkList)
         };
 
         drinkCost = function(drinkIngredientList, ingredientList){

@@ -2,11 +2,20 @@
 
 angular.module('baristaMaticApp')
     .factory('inventory', function ($http) {
-        var ingredientList = function(){
+        var ingredientList,
+            updateIngredients,
+            updateDB,
+            restockInventory,
+            inventoryPrices,
+            inventoryStockCheck,
+            inventoryLow;
+
+        ingredientList = function(){
             return $http.get('/api/ingredients');
         };
 
-        var updateIngredients = function(ingredientsToSubtract, ingredientsToUpdate){
+        updateIngredients = function(ingredientsToSubtract, ingredientsToUpdate, drinkList){
+            var inventoryToCheck = [];
 
             for(var i = 0; i < ingredientsToUpdate.length; i++){
                 var remainingValue = ingredientsToUpdate[i].units -= ingredientsToSubtract[i];
@@ -17,32 +26,59 @@ angular.module('baristaMaticApp')
                     remainingValue = 0
                 }
 
-                updateDB(remainingValue,ingredientsToUpdate[i])
+                updateDB(remainingValue,ingredientsToUpdate[i]);
+                inventoryToCheck.push(ingredientsToUpdate[i])
             }
+
+            inventoryStockCheck(inventoryToCheck, drinkList)
         };
 
-        var updateDB = function(remainingValue, ingredientsToUpdate){
+        updateDB = function(remainingValue, ingredientsToUpdate){
             $http.put('/api/ingredients/' + ingredientsToUpdate._id, {'units' : remainingValue}).success(function(result){
-                console.log('Database Updated')
             });
         };
 
-        var restockInventory = function(ingredients){
+        restockInventory = function(ingredients,drinkList){
             for(var i = 0; i < ingredients.length; i++){
                 ingredients[i].units = 10;
                 $http.put('/api/ingredients/' + ingredients[i]._id, {'units' : 10}).success(function(result){
-                    console.log('Ingredients Restocked')
                 });
+            }
+
+            for(var i = 0; i < drinkList.length; ++i){
+                drinkList[i].lowInventory = false;
             }
         };
 
 
-        var inventoryPrices = function(itemName, itemAmount, inventoryList){
+        inventoryPrices = function(itemName, itemAmount, inventoryList){
 
             for(var i = 0; i < inventoryList.length; i++){
                 if(itemName === inventoryList[i].dbname){
                     var totalCost =  (inventoryList[i].cost * itemAmount).toFixed(2);
                     return parseFloat(totalCost)
+                }
+            }
+        };
+
+        inventoryStockCheck = function(inventory, drinkList){
+
+            for(var i = 0; i < inventory.length; ++i){
+                if(inventory[i].units <= 4 && inventory[i].units != 0){
+                    inventoryLow(inventory[i].dbname, drinkList)
+                }
+            }
+        };
+
+        inventoryLow = function(lowIventoryItem, drinkList){
+            for(var i = 0; i < drinkList.length; i++){
+                var drink = drinkList[i],
+                    drinkIngredients = drink.ingredients;
+
+                for (var ingredients in drinkIngredients) {
+                    if(drinkIngredients[ingredients] > 0 && ingredients === lowIventoryItem){
+                        drink.lowInventory = true;
+                    }
                 }
             }
         };
@@ -55,6 +91,8 @@ angular.module('baristaMaticApp')
 
             restockInventory : restockInventory,
 
-            inventoryPrices : inventoryPrices
+            inventoryPrices : inventoryPrices,
+
+            inventoryStockCheck : inventoryStockCheck
         };
     });
