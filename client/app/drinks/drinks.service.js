@@ -8,7 +8,8 @@ angular.module('baristaMaticApp')
             drinkCost,
             buildPriceObj,
             priceObj = [],
-            calculatePrice;
+            calculatePrice,
+            attachPrice;
 
         drinkList = function(){
             return $http.get('/api/drinks');
@@ -78,6 +79,13 @@ angular.module('baristaMaticApp')
             return objToCalc
         };
 
+        attachPrice = function(priceObj,drinkObj){
+            for(var i = 0; i < priceObj.length; i++){
+                drinkObj[i].totalPrice = priceObj[i].totalPrice
+            }
+            return drinkObj
+        };
+
         // Public API here
         return {
             drinkList : drinkList,
@@ -90,6 +98,8 @@ angular.module('baristaMaticApp')
 
             priceObj : priceObj,
 
-            calculatePrice : calculatePrice
+            calculatePrice : calculatePrice,
+
+            attachPrice : attachPrice
         };
     });

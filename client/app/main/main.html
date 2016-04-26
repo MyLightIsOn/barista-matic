@@ -3,28 +3,26 @@
 <div id="main-container">
   <div class="row">
     <div class="col-lg-12">
-      <!--<ul>
-        <li ng-repeat="ingredient in ingredientList">
-          <span>{{ingredient.name}} {{ingredient.units}}</span>
-        </li>
-      </ul>-->
       <div id="drink-list-container">
         <ul class="drink-list">
-          <li ng-repeat="drink in drinkList">
+          <li ng-repeat="drink in drinkList" ng-click="drinkSelect($event, drink)" data-name="{{drink.dataName}}">
             <div class="number-container">
               <span class="number-circle">
                 <span class="drink-number">{{drink.drinkNumber}}</span>
               </span>
             </div>
-            <span ng-click="drinkSelect($event, drink)" data-name="{{drink.dataName}}" class="drink-name">{{drink.name}}</span>
+            <span class="drink-name">{{drink.name}}</span>
+            <span class="drink-price">{{drink.totalPrice}}</span>
           </li>
         </ul>
       </div>
-      <!--<ul>
-        <li ng-repeat="drink in drinkListAndPrice">
-          <span>{{drink.totalPrice}}</span>
-        </li>
-      </ul>-->
+      <div id="drink-inventory-container">
+        <ul>
+          <li ng-repeat="ingredient in ingredientList">
+            <span>{{ingredient.name}} {{ingredient.units}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
